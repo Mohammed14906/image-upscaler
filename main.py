@@ -1,5 +1,5 @@
 """
-AuraScale — Python Automation & Benchmarking Suite
+High-Performance Image Upscaler — Python Automation & Benchmarking Suite
 ===================================================
 Loads a sample image, runs the Catmull-Rom upscaler (Naive vs Optimized),
 and reports execution time, speedup factor, and throughput in Megapixels/sec.
@@ -24,11 +24,11 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Search both lib-prefixed (MinGW/Clang) and non-prefixed (MSVC) names
 search_paths = [
-    os.path.join(base_dir, 'build', f'libaurascale_kernel{lib_ext}'),
-    os.path.join(base_dir, 'build', f'aurascale_kernel{lib_ext}'),
-    os.path.join(base_dir, 'build', 'Release', f'aurascale_kernel{lib_ext}'),
-    os.path.join(base_dir, f'libaurascale_kernel{lib_ext}'),
-    os.path.join(base_dir, f'aurascale_kernel{lib_ext}'),
+    os.path.join(base_dir, 'build', f'libupscale_engine{lib_ext}'),
+    os.path.join(base_dir, 'build', f'upscale_engine{lib_ext}'),
+    os.path.join(base_dir, 'build', 'Release', f'upscale_engine{lib_ext}'),
+    os.path.join(base_dir, f'libupscale_engine{lib_ext}'),
+    os.path.join(base_dir, f'upscale_engine{lib_ext}'),
 ]
 
 lib_path = None
@@ -38,7 +38,7 @@ for p in search_paths:
         break
 
 if lib_path is None:
-    print("ERROR: Could not find aurascale_kernel library.")
+    print("ERROR: Could not find upscale_engine library.")
     print("Build with CMake first:")
     print("  mkdir build && cd build")
     print("  cmake .. -DCMAKE_BUILD_TYPE=Release -G \"MinGW Makefiles\"")
@@ -112,7 +112,7 @@ def benchmark(scale_factor: float = 30.0, input_path: str = None) -> None:
     total_out_pixels = out_h * out_w * in_c
 
     print(f"{'=' * 60}")
-    print(f"  AuraScale Benchmarking Suite")
+    print(f"  Upscaler Benchmarking Suite")
     print(f"  Kernel : Catmull-Rom (Mitchell-Netravali B=0, C=0.5)")
     print(f"  Input  : {in_w} x {in_h}  ({in_c} channels)")
     print(f"  Output : {out_w} x {out_h}  (Scale: {scale_factor}x)")
@@ -176,7 +176,7 @@ def benchmark(scale_factor: float = 30.0, input_path: str = None) -> None:
 # Entry point
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="AuraScale Benchmark Suite")
+    parser = argparse.ArgumentParser(description="Image Upscaler Benchmark Suite")
     parser.add_argument("--input", "-i", type=str, default=None,
                         help="Path to input image (default: test_image.jpg)")
     parser.add_argument("--scale", type=float, default=30.0,

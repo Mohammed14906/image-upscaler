@@ -1,5 +1,5 @@
 /**
- * AuraScale Kernel — Catmull-Rom (Mitchell-Netravali B=0, C=0.5) Upscaler
+ * High-Performance Kernel — Catmull-Rom (Mitchell-Netravali B=0, C=0.5) Upscaler
  *
  * Single-pass spatial interpolation with intrinsic edge-sharpening via
  * negative lobes in the BC-Spline kernel.
@@ -13,7 +13,7 @@
  *   - std::jthread stripping: Horizontal parallelism across all cores
  */
 
-#include "aurascale_kernel.hpp"
+#include "upscale_engine.hpp"
 
 #include <immintrin.h>
 #include <thread>
@@ -84,7 +84,7 @@ inline float catmullrom_weight_scalar(float x) {
 // ============================================================================
 extern "C" {
 
-AURASCALE_API void upscale_catmullrom_naive(
+UPSCALE_API void upscale_catmullrom_naive(
     const float* in_data, int in_w, int in_h, int channels,
     float* out_data, int out_w, int out_h)
 {
@@ -125,7 +125,7 @@ AURASCALE_API void upscale_catmullrom_naive(
 // ============================================================================
 // Optimized engine — AVX2 + FMA + Tiling + Unrolling + jthread stripping
 // ============================================================================
-AURASCALE_API void upscale_catmullrom_optimized(
+UPSCALE_API void upscale_catmullrom_optimized(
     const float* in_data, int in_w, int in_h, int channels,
     float* out_data, int out_w, int out_h)
 {

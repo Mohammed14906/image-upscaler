@@ -1,10 +1,10 @@
-#ifndef AURASCALE_KERNEL_HPP
-#define AURASCALE_KERNEL_HPP
+#ifndef UPSCALE_ENGINE_HPP
+#define UPSCALE_ENGINE_HPP
 
 #ifdef _WIN32
-#define AURASCALE_API __declspec(dllexport)
+#define UPSCALE_API __declspec(dllexport)
 #else
-#define AURASCALE_API __attribute__((visibility("default")))
+#define UPSCALE_API __attribute__((visibility("default")))
 #endif
 
 extern "C" {
@@ -21,7 +21,7 @@ extern "C" {
  * @param out_w     Width of the output image.
  * @param out_h     Height of the output image.
  */
-AURASCALE_API void upscale_catmullrom_naive(
+UPSCALE_API void upscale_catmullrom_naive(
     const float* in_data, int in_w, int in_h, int channels,
     float* out_data, int out_w, int out_h);
 
@@ -42,10 +42,10 @@ AURASCALE_API void upscale_catmullrom_naive(
  * @param out_w     Width of the output image.
  * @param out_h     Height of the output image.
  */
-AURASCALE_API void upscale_catmullrom_optimized(
+UPSCALE_API void upscale_catmullrom_optimized(
     const float* in_data, int in_w, int in_h, int channels,
     float* out_data, int out_w, int out_h);
 
 } // extern "C"
 
-#endif // AURASCALE_KERNEL_HPP
+#endif // UPSCALE_ENGINE_HPP
