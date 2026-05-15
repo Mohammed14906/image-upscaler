@@ -1,0 +1,11 @@
+build/
+__pycache__/
+*.dll
+*.so
+.vscode/
+.DS_Store
+
+# Ignore all output images but keep the test_image
+*.jpg
+*.png
+!test_image.jpg
